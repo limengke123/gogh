@@ -1,12 +1,14 @@
-const requestHtml = require('./request')
 const cheerio = require('cheerio')
+const requestHtml = require('./request')
+const { forEach, addProperty, getValueByRule } = require('./util/tool')
+const chalk = require('chalk')
 
 class Spider {
-    constructor({ name, url, path, encode }) {
-        this.name = name
-        this.url = url
-        this.path = path
-        this.encode = encode
+    constructor(option) {
+        this.links = option.links
+        this.callback = option.callback
+        this.delay = option.delay
+        this.timeout = option.timeout
     }
     setOptions({ name, url, path, encode }) {
         this.name = name || this.name
@@ -15,24 +17,27 @@ class Spider {
         this.encode = encode || this.encode
         return this
     }
-    async start() {
-        await this.getHtml({ 
-            url: this.url, 
-            encode: this.encode 
+    start(links = this.links) {
+        this.go(links, {}, true)
+    }
+
+    async go (links, output = {}, isOut = false) {
+        forEach(links, link => {
+            let $
+            try {
+                $ = await requestHtml(link.url)
+            } catch (e) {
+                console.log(chalk.yellow(`获取 ${url.link} 页面发生错误！\n`))
+                console.log(chalk.blue(`${e.stack}`))
+            }
+            forEach(rules, rule => {
+                getValueByRule($, rule.list, rule.rule)
+            })
+
+            if (this.callback) {
+                this.callback(output)
+            }
         })
-        const $ = this.get$()
-        console.log($(this.path))
-    }
-    async getHtml({ url, encode }) {
-        const html = this.html = await requestHtml(url, encode)
-        return html
-    }
-    get$ () {
-        if (!this.html) {
-            return new Error('没有获取到html，调用 getHtml 获取html')
-        }
-        const $ = this.$ = cheerio.load(this.html)
-        return $
     }
 }
 
