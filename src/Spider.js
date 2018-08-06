@@ -23,6 +23,7 @@ class Spider {
 
     async go (links, output = [], isOut = false) {
         forEach(links, async link => {
+            console.log(chalk.yellow(link.url))
             if (!link.url) return
             let $
             let data = []
@@ -40,11 +41,8 @@ class Spider {
                             d.links = []
                             rule.links.forEach(async link => {
                                 if (!link.url) {
-                                    if(!_data.url) {
-                                        return
-                                    }
                                     link.url = this.getUrl(this.links.url, d.url)
-                                    console.log(chalk.red(link.url))
+                                    // console.log(chalk.red(link.url))
                                 }
                             })
                             // 零时搞一个延迟先
@@ -58,11 +56,7 @@ class Spider {
                         _data.links = []
                         rule.links.forEach(link => {
                             if (!link.url) {
-                                if(!_data.url) {
-                                    return
-                                }
                                 link.url = this.getUrl(this.links.url, _data.url)
-                                console.log(chalk.red(link.url))
                             }
                         })
                         // 零时搞一个延迟先
@@ -73,13 +67,11 @@ class Spider {
                     }
                 }
                 data.push(_data)
+                if (isOut && this.callback) {
+                    this.callback(data)
+                }
             })
-
             output.push(data)
-
-            if (isOut && this.callback) {
-                this.callback(data)
-            }
         })
     }
     

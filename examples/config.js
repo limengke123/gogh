@@ -7,11 +7,11 @@ var iqiyi = {
         rule: {
             url: {
                 type: "href",
-                text: "div.site-piclist_pic a"
+                path: "div.site-piclist_pic a"
             },
             title: {
                 type: "title",
-                text: "div.site-piclist_pic a"
+                path: "div.site-piclist_pic a"
             }
         },
         links: [{
@@ -20,11 +20,11 @@ var iqiyi = {
                     rule: {
                         title: {
                             type: "text",
-                            text: "h1.main_title a"
+                            path: "h1.main_title a"
                         },
                         content: {
                             type: "text",
-                            text: 'p[data-movlbshowmore-ele="whole"]'
+                            path: 'p[data-movlbshowmore-ele="whole"]'
                         }
                     }
                 },
@@ -35,11 +35,11 @@ var iqiyi = {
                     rule: {
                         address: {
                             type: "href",
-                            text: "a"
+                            path: "a"
                         },
                         title: {
                             type: "title",
-                            text: "a"
+                            path: "a"
                         }
                     }
                 },

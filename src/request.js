@@ -23,6 +23,7 @@ const requestHtml = (url, encode = 'utf8', return$ = true) => {
             }
             const htmlString = iconv.decode(body, encode)
             if (return$) {
+                // console.log(htmlString)
                 resolve(cheerio.load(htmlString))
             } else {
                 resolve(htmlString)
