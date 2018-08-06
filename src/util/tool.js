@@ -1,7 +1,7 @@
 const forEach = (a, cb) => {
-    if (Object.prototype.toString.call(a) === 'object Array') {
+    if (Object.prototype.toString.call(a) === '[object Array]') {
         a.forEach(cb)
-    } else if (Object.prototype.toString.call(a) === 'object Object') {
+    } else if (Object.prototype.toString.call(a) === '[object Object]') {
         cb(a)
     } else {
         throw new Error(`传入的 ${a} 必须是数组或是对象！`)
@@ -63,9 +63,37 @@ const getValueByRule = ($, list, rule) => {
             })
             result.push(data)
         })
-        return list
+        return result
     } else {
         // 不是一个列表
+        let data = {}
+        const keys = Object.keys(rule)
+        keys.forEach(key => {
+            const singleRule = rule[key]
+            switch (singleRule.type) {
+                case 'text':
+                    if ($(this).find(singleRule.path).text()) {
+                        data[key] = $(this).find(singleRule.path).text()
+                    }
+                    break
+                case 'html' :
+                    if ($(this).find(singleRule.path).html()) {
+                        data[key] = $(this).find(singleRule.path).html()
+                    }
+                    break
+                case 'val' :
+                    if ($(this).find(singleRule.path).val()) {
+                        data[key] = $(this).find(singleRule.path).val()
+                    }
+                    break
+                default:
+                    if ($(this).find(singleRule.path).attr(singleRule.type)) {
+                        data[key] = $(this).find(singleRule.path).attr(singleRule.type)
+                    }
+                    break
+            }
+        })
+        return data
     }
 }
 

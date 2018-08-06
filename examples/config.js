@@ -29,8 +29,6 @@ var iqiyi = {
                     }
                 },
                 {
-
-                    
                     key: "before",
                     list: '.relatedVideoInfo li',
                     // list: 'ul[data-albumtab-name="预告片"] li',

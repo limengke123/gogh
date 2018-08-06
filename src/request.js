@@ -40,7 +40,7 @@ const requestHtml = (url, encode = 'utf8', return$ = true) => {
  */
 const delayRequestHtml = function (delayTime, url, encode = 'utf8', return$ = true) {
     return new Promise(async (resolve, reject) => {
-        setTimeout(() => {
+        setTimeout(async () => {
             try {
                 const result = await requestHtml(url, encode, return$)
                 resolve(result)
