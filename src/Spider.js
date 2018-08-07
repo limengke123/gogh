@@ -23,8 +23,7 @@ class Spider {
 
     async go (links, output = [], isOut = false) {
         forEach(links, async link => {
-            console.log(chalk.yellow(link.url))
-            if (!link.url) return
+            // console.log(chalk.yellow(link.url))
             let $
             let data = []
             try {
@@ -36,43 +35,33 @@ class Spider {
             forEach(link.rules, async rule => {
                 let _data = getValueByRule($, rule.list, rule.rule)
                 if(rule.links) {
-                    if (rule.list) {
-                        forEach(_data, async d => {
-                            d.links = []
-                            rule.links.forEach(async link => {
-                                if (!link.url) {
-                                    link.url = this.getUrl(this.links.url, d.url)
-                                    // console.log(chalk.red(link.url))
-                                }
-                            })
-                            // 零时搞一个延迟先
-                            if (this.delay) {
-                                await this.wait(this.delay)
-                            }
-                            await this.go(rule.links, d.links)
-                        })
-                    } else {
-                        // _data.url = this.getUrl(this.links.url, _data.url)
-                        _data.links = []
-                        rule.links.forEach(link => {
-                            if (!link.url) {
-                                link.url = this.getUrl(this.links.url, _data.url)
-                            }
+                    forEach(_data, async d => {
+                        console.log('start')
+                        // console.log(rule.links)
+                        forEach(rule.links, link => {
+                            // console.log(link.url)
+                            link.url = this.getUrl(this.links.url, d.url)
+                            // console.log(chalk.red(link.url))
                         })
                         // 零时搞一个延迟先
                         if (this.delay) {
-                            await this.wait(this.delay)
+                            await this.wait(5000)
                         }
-                        await this.go(rule.links, _data.links)
-                    }
+                        console.log(1)
+                        const _linkResult = await this.go(rule.links, [])
+                        // console.log(_linkResult)
+                        d.links = _linkResult
+                        if (isOut && this.callback) {
+                            this.callback(data)
+                        }
+                    })
+                    
                 }
                 data.push(_data)
-                if (isOut && this.callback) {
-                    this.callback(data)
-                }
             })
             output.push(data)
         })
+        return output
     }
     
     /**

@@ -43,7 +43,7 @@ const config = require('./config')
 const iqiSpider = new Spider({
     links: config,
     callback: function (data) {
-        console.log(data)
+        // console.log(data)
     },
     delay:1000
 })
