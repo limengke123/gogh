@@ -1,5 +1,9 @@
+const fs = require('fs')
+const path = require('path')
 const Spider = require('../src/index')
 const config = require('./config')
+
+const resultPath = path.resolve(__dirname, '../resultData.json')
 
 // const doubanSpider = new Spider({
 //     name: '豆瓣音乐',
@@ -44,6 +48,8 @@ const iqiSpider = new Spider({
     links: config,
     callback: function (data) {
         console.log(JSON.stringify(data))
+        fs.unlinkSync(resultPath)
+        fs.writeFileSync(resultPath, JSON.stringify(data), 'utf8')
     },
     delay:1000
 })

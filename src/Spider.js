@@ -23,7 +23,6 @@ class Spider {
 
     async go (links, output = [], isOut = false) {
         forEach(links, async link => {
-            // console.log(chalk.yellow(link.url))
             let $
             let data = []
             try {
@@ -37,41 +36,17 @@ class Spider {
                 if(rule.links) {
                     for (let i = 0, length = _data.length; i < length; i++) {
                         let d = _data[i]
-                        // console.log(rule.links)
                         forEach(rule.links, link => {
                             link.url = this.getUrl(this.links.url, d.url)
                             console.log(link.url)
                         })
                         // 零时搞一个延迟先
                         if (this.delay) {
-                            await this.wait(this.delay)
+                            await this.wait(500)
                         }
                         d.links = []
                         await this.go(rule.links, d.links)
-                        // console.log(_linkResult)
                     }
-                    // forEach(_data, async d => {
-                    //     console.log('start')
-                    //     // console.log(rule.links)
-                    //     forEach(rule.links, link => {
-                    //         // console.log(link.url)
-                    //         link.url = this.getUrl(this.links.url, d.url)
-                    //         // console.log(chalk.red(link.url))
-                    //     })
-                    //     console.log(2)
-                    //     // 零时搞一个延迟先
-                    //     if (this.delay) {
-                    //         await this.wait(5000)
-                    //     }
-                    //     console.log(3)
-                    //     const _linkResult = await this.go(rule.links, [])
-                    //     // console.log(_linkResult)
-                    //     d.links = _linkResult
-                    //     if (isOut && this.callback) {
-                    //         this.callback(data)
-                    //     }
-                    // })
-                    
                 }
                 data.push(_data)
                 if (isOut && this.callback) {
