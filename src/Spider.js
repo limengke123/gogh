@@ -57,7 +57,7 @@ class Spider {
                         if (this.delay) {
                             await this.wait(200)
                         }
-                        d.links = []
+                        // d.links = []
                         spinner.start()
                         if (this.infos) {
                             let text = '耗时'
@@ -66,17 +66,21 @@ class Spider {
                             }
                             text = chalk.yellow.bold(text)
                             console.time(text)
-                            await this.go(rule.links, d.links)
+                            d.links = await this.go(rule.links, [])
                             console.timeEnd(text)
                         } else {
-                            await this.go(rule.links, d.links)
+                            d.links = await this.go(rule.links, [])
                         }
                         spinner.stop()
                     }
                 }
                 data.push(_data)
             }
-            output.push(data)
+            if (data.length === 1) {
+                output.push(data[0])
+            } else {
+                output.push(data)
+            }
             if (this.callback && !isOut) {
                 this.callback(data)
             }
