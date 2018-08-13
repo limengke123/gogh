@@ -2,11 +2,17 @@ const urlResolve = require('url').resolve
 const {requestHtml} = require('./request')
 const { forEach, getValueByRule } = require('./util/tool')
 const chalk = require('chalk')
+const ora = require('ora')
+const spinner = ora({
+    spinner: 'dots'
+})
 
 class Spider {
     constructor(option) {
         this.links = option.links
         this.callback = option.callback
+        this.done = option.done
+        this.infos = option.infos
         this.delay = option.delay
         this.timeout = option.timeout
     }
@@ -22,7 +28,11 @@ class Spider {
     }
 
     async go (links, output = [], isOut = false) {
-        forEach(links, async link => {
+        if(!Array.isArray(links)) {
+            links = [links]
+        }
+        for(let i = 0, len = links.length; i < len; i++) {
+            let link = links[i]
             let $
             let data = []
             try {
@@ -31,31 +41,57 @@ class Spider {
                 console.log(chalk.yellow(`获取 ${link.url} 页面发生错误！\n`))
                 console.log(chalk.blue(`${e.stack}`))
             }
-            forEach(link.rules, async rule => {
+            if (!Array.isArray(link.rules)) {
+                link.rules = [link.rules]
+            }
+            for(let k = 0, len = link.rules.length; k < len; k++) {
+                let rule = link.rules[k]
                 let _data = getValueByRule($, rule.list, rule.rule)
                 if(rule.links) {
                     for (let i = 0, length = _data.length; i < length; i++) {
                         let d = _data[i]
+                        let singleInfo
                         forEach(rule.links, link => {
-                            link.url = this.getUrl(this.links.url, d.url)
-                            console.log(link.url)
+                            singleInfo = link.url = this.getUrl(this.links.url, d.url)
                         })
-                        // 零时搞一个延迟先
                         if (this.delay) {
-                            await this.wait(500)
+                            await this.wait(200)
                         }
                         d.links = []
-                        await this.go(rule.links, d.links)
+                        spinner.start()
+                        if (this.infos) {
+                            let text = '耗时'
+                            if (Array.isArray(rule.links)) {
+                                text = `${singleInfo} 耗时`
+                            }
+                            text = chalk.yellow.bold(text)
+                            console.time(text)
+                            await this.go(rule.links, d.links)
+                            console.timeEnd(text)
+                        } else {
+                            await this.go(rule.links, d.links)
+                        }
+                        spinner.stop()
                     }
                 }
                 data.push(_data)
-                if (isOut && this.callback) {
-                    this.callback(data)
-                }
-            })
+            }
             output.push(data)
-        })
-        return output
+            if (this.callback && !isOut) {
+                this.callback(data)
+            }
+        }
+        if (links.length === 1) {
+            output = output[0]
+        }
+        if(isOut) {
+            if (this.done) {
+                this.done(output)
+            }
+            return this
+        } else {
+            return output
+        }
     }
     
     /**

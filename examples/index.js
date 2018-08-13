@@ -2,56 +2,33 @@ const fs = require('fs')
 const path = require('path')
 const Spider = require('../src/index')
 const config = require('./config')
+const chalk = require('chalk')
 
 const resultPath = path.resolve(__dirname, '../resultData.json')
 
-// const doubanSpider = new Spider({
-//     name: '豆瓣音乐',
-//     url: 'https://music.douban.com/artists/',
-//     path: '#wrapper #content h1'
-// })
-
-// const dyttSpider = new Spider({
-//     name: '电影天堂',
-//     url: 'http://www.dytt8.net/',
-//     encode: 'gb2312'
-// })
-
-// const doubanMainSpider = new Spider({
-//     name: '豆瓣主页',
-//     url: 'https://book.douban.com/',
-//     encode: '#content > div > div.article > div.section.books-express > div.bd > div > div > ul:nth-child(2) > li > div.cover > a'
-// })
-
-// doubanSpider.start()
-//     .then(resp => {
-//         // console.log(resp)
-//     }).catch(err => {
-//         console.log(err)
-//     })
-
-// dyttSpider.start()
-//     .then(resp => {
-//         console.log(resp)
-//     }).catch(err => {
-//         console.log(err)
-//     })
-
-// doubanMainSpider.start()
-//     .then(resp => {
-//         //console.log(resp)
-//     }).catch(err => {
-//         console.log(err)
-//     })
-
 const iqiSpider = new Spider({
-    links: config,
+    links: config.iqiyi,
+    infos: true,
     callback: function (data) {
-        console.log(JSON.stringify(data))
+        console.log(chalk.blue(JSON.stringify(data)))
+    },
+    done: function (data) {
+        // console.log(JSON.stringify(data))
+        console.log(chalk.green(`抓取结束`))
         fs.unlinkSync(resultPath)
         fs.writeFileSync(resultPath, JSON.stringify(data), 'utf8')
     },
     delay:1000
 })
+// const iqiSpider = new Spider({
+//     links: config.iqiyi2,
+//     callback: function (data) {
+//         console.log(chalk.green(JSON.stringify(data)))
+//         // console.log(JSON.stringify(data))
+//         // fs.unlinkSync(resultPath)
+//         // fs.writeFileSync(resultPath, JSON.stringify(data), 'utf8')
+//     },
+//     delay:1000
+// })
 
 iqiSpider.start()

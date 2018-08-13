@@ -2,6 +2,7 @@ const request = require('request')
 // const request = require('http').request
 const iconv = require('iconv-lite')
 const cheerio = require('cheerio')
+const chalk = require('chalk')
 
 /**
  * 根据 url 获取页面
@@ -21,7 +22,13 @@ const requestHtml = (url, encode = 'utf8', return$ = true) => {
             if (err) {
                 reject(err)
             }
-            const htmlString = iconv.decode(body, encode)
+            let htmlString
+            try {
+                htmlString = iconv.decode(body, encode)
+            } catch(e) {
+                console.log(chalk.yellow(`url: ${url}; encode: ${encode} 解析报错 \n`))
+                console.log(chalk.blue(e.stack))
+            }
             if (return$) {
                 // console.log(htmlString)
                 resolve(cheerio.load(htmlString))
@@ -51,8 +58,6 @@ const delayRequestHtml = function (delayTime, url, encode = 'utf8', return$ = tr
         }, delayTime)
     })
 }
-
-
 
 module.exports = {
     requestHtml,
