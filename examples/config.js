@@ -124,7 +124,43 @@ var iqiyi2 = {
     }]
 }
 
+var segementFault = {
+    title: 'segementFault',
+    url: 'https://segmentfault.com/blogs?page=1',
+    rules: {
+        list: "div.blog-stream section",
+        rule: {
+            url: {
+                type: "href",
+                path: "h2.title a"
+            },
+            title: {
+                type: "text",
+                path: "h2.title a"
+            },
+            author: {
+                type: "text",
+                path: "ul.author span a:first-child"
+            }
+        },
+        links: {
+            rules: [
+                {
+                    list: 'ul.article__title--tag li',
+                    rule: {
+                        tagName: {
+                            path: 'a',
+                            type: 'data-original-title'
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+
 module.exports = {
     iqiyi: [iqiyi],
-    iqiyi2: iqiyi2
+    iqiyi2: iqiyi2,
+    segementFault
 }

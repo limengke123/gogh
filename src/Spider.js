@@ -14,6 +14,7 @@ class Spider {
         this.done = option.done
         this.infos = option.infos
         this.delay = option.delay
+        this.page = option.page
         this.timeout = option.timeout
     }
     setOptions({ name, url, path, encode }) {
@@ -23,8 +24,13 @@ class Spider {
         this.encode = encode || this.encode
         return this
     }
-    start(links = this.links) {
-        this.go(links, [], true)
+    async start(links = this.links) {
+        await this.go(links, [], true)
+        let nextPageLink = this.page()
+        if(nextPageLink) {
+            const newLinks = Object.assign(this.links, {url: nextPageLink})
+            await this.start(newLinks)
+        }
     }
 
     async go (links, output = [], isOut = false) {
