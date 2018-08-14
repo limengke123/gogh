@@ -44,8 +44,11 @@ const iqiSpider = new Spider({
         // fs.unlinkSync(resultPath)
         // fs.writeFileSync(resultPath, JSON.stringify(data), 'utf8')
     },
+    allPageDone: function () {
+        console.log(`all spidering works are finished!`)
+    },
     delay:1000,
-    page: function () {
+    page: (function () {
         let index = 2
         let result
         return function () {
@@ -55,8 +58,9 @@ const iqiSpider = new Spider({
                 result = `https://segmentfault.com/blogs?page=${index}`
             }
             index ++
+            return result
         }
-    }
+    })()
 })
 
 iqiSpider.start()

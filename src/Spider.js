@@ -12,6 +12,7 @@ class Spider {
         this.links = option.links
         this.callback = option.callback
         this.done = option.done
+        this.allPageDone = option.allPageDone
         this.infos = option.infos
         this.delay = option.delay
         this.page = option.page
@@ -30,6 +31,10 @@ class Spider {
         if(nextPageLink) {
             const newLinks = Object.assign(this.links, {url: nextPageLink})
             await this.start(newLinks)
+        } else {
+            if (this.allDone) {
+                this.allPageDone()
+            }
         }
     }
 
@@ -61,7 +66,7 @@ class Spider {
                             singleInfo = link.url = this.getUrl(this.links.url, d.url)
                         })
                         if (this.delay) {
-                            await this.wait(200)
+                            await this.wait(this.delay)
                         }
                         // d.links = []
                         spinner.start()
