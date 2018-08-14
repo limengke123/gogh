@@ -1,4 +1,8 @@
-# spider
+# gogh
+
+>gogh，致敬我喜欢的画家 Van Gogh
+
+简单的页面爬取模块，根据传入的配置信息来获得对应数据。
 
 ## 用法
 
@@ -104,3 +108,15 @@ option.page() // false
 ### delay
 
 跳转下一个页面的间隔时间。
+
+## 如何开始和例子
+
+```bash
+
+# 安装依赖
+npm i
+
+# 试跑例子
+npm run example
+
+```
