@@ -39,7 +39,7 @@ spider.start()
 
 ### callback
 
-回调函数中接收爬取回来的数据：
+回调函数中接收子页面爬取回来的数据：
 
 ```js
 option.callback = function (data) {
@@ -47,3 +47,60 @@ option.callback = function (data) {
     // 这里可以做一些保存之类的事情
 }
 ```
+
+### done
+
+单个页面爬取完毕的回调，接受单页面数据：
+
+```js
+option.done = function (data) {
+  // 对单个页面的数据处理
+}
+```
+
+### allPageDone
+
+所有分页页面结束的回调函数：
+
+```js
+option.allPageDone = function () {
+  // 所有页面爬取结束
+}
+```
+
+### page
+
+如果有对分页爬取的需求，提供一个返回待爬取的分页 `url` 的函数，举个例子，可以用闭包的形式返回一个函数：
+
+```js
+option.page = (function () {
+    let index = 2
+    let result
+    return function () {
+        if (index > 5) {
+            result = false
+        } else {
+            result = `https://segmentfault.com/blogs?page=${index}`
+        }
+        index ++
+        return result
+    }
+})()
+```
+
+内部依据 `option.page` 的返回值来决定是否继续爬取页面，在上面的这个例子里：
+
+```js
+option.page() // https://segmentfault.com/blogs?page=2
+option.page() // https://segmentfault.com/blogs?page=3
+option.page() // https://segmentfault.com/blogs?page=4
+option.page() // https://segmentfault.com/blogs?page=5
+option.page() // false
+option.page() // false
+```
+
+内部拿到 `false` 的时候将停止爬取，同时触发 `allPageDone` 事件。
+
+### delay
+
+跳转下一个页面的间隔时间。
