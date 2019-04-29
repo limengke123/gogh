@@ -32,7 +32,7 @@ class Spider {
             const newLinks = Object.assign(this.links, {url: nextPageLink})
             await this.start(newLinks)
         } else {
-            if (this.allDone) {
+            if (this.allPageDone) {
                 this.allPageDone()
             }
         }
