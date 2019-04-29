@@ -27,7 +27,7 @@ class Spider {
     }
     async start(links = this.links) {
         await this.go(links, [], true)
-        let nextPageLink = this.page()
+        let nextPageLink = this.page && this.page()
         if(nextPageLink) {
             const newLinks = Object.assign(this.links, {url: nextPageLink})
             await this.start(newLinks)
@@ -108,7 +108,7 @@ class Spider {
             return output
         }
     }
-    
+
     /**
      * 根据需要跳转 link 类型得到 跳转绝对 url。针对相对路径和绝对路径做处理。
      * @param {string} hosturl - 原始的 link 路径
