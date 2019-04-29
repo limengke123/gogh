@@ -14,6 +14,9 @@
     "type": "git",
     "url": "git@gitee.com:limengke/spider.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
