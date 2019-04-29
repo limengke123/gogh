@@ -159,8 +159,30 @@ let segementFault = {
     }
 }
 
+const zhihu = {
+    url: 'https://www.zhihu.com/hot',
+    rules: {
+        list: '.Topstory-hot.HotList section',
+        rule: {
+            url: {
+                type: 'href',
+                path: '.HotItem-content a'
+            },
+            title: {
+                type: 'text',
+                path: '.HotItem-content h2.HotItem-title'
+            },
+            rank: {
+                type: 'text',
+                path: '.HotItem-index .HotItem-rank.HotItem-hot'
+            }
+        }
+    }
+}
+
 module.exports = {
     iqiyi: [iqiyi],
     iqiyi2: iqiyi2,
-    segementFault
+    segementFault,
+    zhihu
 }
