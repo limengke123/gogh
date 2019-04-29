@@ -8,7 +8,9 @@
     "example": "node ./examples/segementFault.js",
     "lint": "eslint --fix src/ examples/",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "commit": "git commit -am 'changelog'"
+    "commit": "git commit -am 'changelog'",
+    "preversion": "npm run changlog && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
