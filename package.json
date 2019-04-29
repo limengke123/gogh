@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "example": "node ./examples",
-    "lint": "eslint --fix src/ examples/"
+    "lint": "eslint --fix src/ examples/",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "conventional-changelog": "^3.1.4",
     "eslint": "^5.16.0",
     "eslint-plugin-babel": "^5.3.0",
     "husky": "^2.1.0",
