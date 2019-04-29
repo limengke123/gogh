@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "example": "node ./examples/segementFault.js",
     "lint": "eslint --fix src/ examples/",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "commit": "git commit -am 'changelog'"
   },
   "repository": {
     "type": "git",
