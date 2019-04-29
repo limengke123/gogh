@@ -13,7 +13,7 @@ const chalk = require('chalk')
 const requestHtml = (url, encode = 'utf8', return$ = true) => {
     return new Promise((resolve, reject) => {
         if (!url) {
-            reject("requestHtml 缺少必要的 url 参数")
+            reject('requestHtml 缺少必要的 url 参数')
         }
         request.get({
             url: url,

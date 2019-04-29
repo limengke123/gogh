@@ -40,63 +40,6 @@ const getValueByRule = ($, list, rule) => {
                 const singleRule = rule[key]
                 if (singleRule.path) {
                     switch (singleRule.type) {
-                        case 'text':
-                            if ($(this).find(singleRule.path).text()) {
-                                data[key] = $(this).find(singleRule.path).text()
-                            }
-                            break
-                        case 'html' :
-                            if ($(this).find(singleRule.path).html()) {
-                                data[key] = $(this).find(singleRule.path).html()
-                            }
-                            break
-                        case 'val' :
-                            if ($(this).find(singleRule.path).val()) {
-                                data[key] = $(this).find(singleRule.path).val()
-                            }
-                            break
-                        default:
-                            if ($(this).find(singleRule.path).attr(singleRule.type)) {
-                                data[key] = $(this).find(singleRule.path).attr(singleRule.type)
-                            }
-                            break
-                    }
-                } else {
-                    switch (singleRule.type) {
-                        case 'text':
-                            if ($(this).text()) {
-                                data[key] = $(this).text()
-                            }
-                            break
-                        case 'html' :
-                            if ($(this).html()) {
-                                data[key] = $(this).html()
-                            }
-                            break
-                        case 'val' :
-                            if ($(this).val()) {
-                                data[key] = $(this).val()
-                            }
-                            break
-                        default:
-                            if ($(this).attr(singleRule.type)) {
-                                data[key] = $(this).attr(singleRule.type)
-                            }
-                            break
-                    }
-                }
-            })
-            result.push(data)
-        })
-        return result
-    } else {
-        // 不是一个列表
-        let data = {}
-        const keys = Object.keys(rule)
-        keys.forEach(key => {
-            const singleRule = rule[key]
-            if (singleRule.path) {
-                switch (singleRule.type) {
                     case 'text':
                         if ($(this).find(singleRule.path).text()) {
                             data[key] = $(this).find(singleRule.path).text()
@@ -117,9 +60,9 @@ const getValueByRule = ($, list, rule) => {
                             data[key] = $(this).find(singleRule.path).attr(singleRule.type)
                         }
                         break
-                }
-            } else {
-                switch (singleRule.type) {
+                    }
+                } else {
+                    switch (singleRule.type) {
                     case 'text':
                         if ($(this).text()) {
                             data[key] = $(this).text()
@@ -140,6 +83,63 @@ const getValueByRule = ($, list, rule) => {
                             data[key] = $(this).attr(singleRule.type)
                         }
                         break
+                    }
+                }
+            })
+            result.push(data)
+        })
+        return result
+    } else {
+        // 不是一个列表
+        let data = {}
+        const keys = Object.keys(rule)
+        keys.forEach(key => {
+            const singleRule = rule[key]
+            if (singleRule.path) {
+                switch (singleRule.type) {
+                case 'text':
+                    if ($(this).find(singleRule.path).text()) {
+                        data[key] = $(this).find(singleRule.path).text()
+                    }
+                    break
+                case 'html' :
+                    if ($(this).find(singleRule.path).html()) {
+                        data[key] = $(this).find(singleRule.path).html()
+                    }
+                    break
+                case 'val' :
+                    if ($(this).find(singleRule.path).val()) {
+                        data[key] = $(this).find(singleRule.path).val()
+                    }
+                    break
+                default:
+                    if ($(this).find(singleRule.path).attr(singleRule.type)) {
+                        data[key] = $(this).find(singleRule.path).attr(singleRule.type)
+                    }
+                    break
+                }
+            } else {
+                switch (singleRule.type) {
+                case 'text':
+                    if ($(this).text()) {
+                        data[key] = $(this).text()
+                    }
+                    break
+                case 'html' :
+                    if ($(this).html()) {
+                        data[key] = $(this).html()
+                    }
+                    break
+                case 'val' :
+                    if ($(this).val()) {
+                        data[key] = $(this).val()
+                    }
+                    break
+                default:
+                    if ($(this).attr(singleRule.type)) {
+                        data[key] = $(this).attr(singleRule.type)
+                    }
+                    break
                 } 
             }
             
