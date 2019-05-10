@@ -1,3 +1,12 @@
+## [1.0.5](https://gitee.com/limengke/spider/compare/v1.0.4...v1.0.5) (2019-04-29)
+
+
+### Bug Fixes
+
+* 修复传入非数组的links的处理错误 ([bb07009](https://gitee.com/limengke/spider/commits/bb07009))
+
+
+
 ## [1.0.4](https://gitee.com/limengke/spider/compare/v1.0.3...v1.0.4) (2019-04-29)
 
 
