@@ -10,7 +10,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "commit": "git commit -am 'changelog'",
     "preversion": "npm run changelog && git add CHANGELOG.md",
-    "postversion": "git push && git push --tags"
+    "postversion": "npm publish && git push && git push --tags"
   },
   "repository": {
     "type": "git",
