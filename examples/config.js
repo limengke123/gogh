@@ -180,9 +180,27 @@ const zhihu = {
     }
 }
 
+const dytt = {
+    url: 'http://s.ygdy8.com/plus/so.php?typeid=1&keyword=%D7%D3%B5%AF',
+    rules: {
+        list: '.co_content8 ul table',
+        rule: {
+            url: {
+                type: 'href',
+                path: 'a'
+            },
+            title: {
+                type: 'text',
+                path: 'a'
+            }
+        }
+    }
+}
+
 module.exports = {
     iqiyi: [iqiyi],
     iqiyi2: iqiyi2,
     segementFault,
-    zhihu
+    zhihu,
+    dytt
 }
