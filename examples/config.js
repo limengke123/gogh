@@ -197,10 +197,32 @@ const dytt = {
     }
 }
 
+const douban = {
+    url: 'https://www.douban.com/search?q=%e8%ae%a9%e5%ad%90%e5%bc%b9%e9%a3%9e',
+    rules: {
+        list: '.result-list .result',
+        rule: {
+            introduction: {
+                type: 'text',
+                path: '.content p'
+            },
+            title: {
+                type: 'text',
+                path: '.title > h3 > a'
+            },
+            tag: {
+                type: 'text',
+                path: '.title > h3 > span:nth-child(1)'
+            }
+        }
+    }
+}
+
 module.exports = {
     iqiyi: [iqiyi],
     iqiyi2: iqiyi2,
     segementFault,
     zhihu,
-    dytt
+    dytt,
+    douban
 }
