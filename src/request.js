@@ -3,21 +3,26 @@ const request = require('request')
 const iconv = require('iconv-lite')
 const cheerio = require('cheerio')
 const chalk = require('chalk')
+const { getRandomUserAgent } = require('./userAgent')
 
 /**
  * 根据 url 获取页面
  * @param {string} url - 请求路径
  * @param {string} encode - 页面编码方式
  * @param {boolean} return$ - 是否直接返回 $ 对象
+ * @param {object} userAgent - userAgent设置
  */
-const requestHtml = (url, encode = 'utf8', return$ = true) => {
+const requestHtml = (url, encode = 'utf8', return$ = true, userAgent = getRandomUserAgent()) => {
     return new Promise((resolve, reject) => {
         if (!url) {
             reject('requestHtml 缺少必要的 url 参数')
         }
         request.get({
             url: url,
-            encoding: null
+            encoding: null,
+            headers: {
+                'User-Agent': userAgent
+            }
         }, (err, res, body) => {
             if (err) {
                 reject(err)
@@ -40,7 +45,7 @@ const requestHtml = (url, encode = 'utf8', return$ = true) => {
 }
 
 /**
- * 
+ *
  * @param {number} delayTime - 延迟时间
  * @param {string} url - 请求路径
  * @param {string} encode - 页面编码方式

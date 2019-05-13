@@ -48,7 +48,7 @@ class Spider {
             let $
             let data = []
             try {
-                $ = await requestHtml(link.url, this.encode)
+                this.$ = $ = await requestHtml(link.url, this.encode)
             } catch (e) {
                 console.log(chalk.yellow(`获取 ${link.url} 页面发生错误！\n`))
                 console.log(chalk.blue(`${e.stack}`))
