@@ -1,3 +1,12 @@
+# [1.1.0](https://gitee.com/limengke/spider/compare/v1.0.6...v1.1.0) (2019-05-13)
+
+
+### Features
+
+* 增加userAgent设置 ([763fa4a](https://gitee.com/limengke/spider/commits/763fa4a))
+
+
+
 ## [1.0.6](https://gitee.com/limengke/spider/compare/v1.0.5...v1.0.6) (2019-05-10)
 
 
