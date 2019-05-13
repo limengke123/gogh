@@ -8,6 +8,11 @@ const forEach = (a, cb) => {
     }
 }
 
+const trim = text => {
+    const reg = /[\n\r\s]/g
+    return text.replace(reg, '')
+}
+
 /**
  * 根据传入的 key 来给对象增加属性，key 的值可以是'a.b.c'
  * @param {object} input - 需要赋值的对象
@@ -43,7 +48,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'text':
                         if ($(this).find(singleRule.path).text()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).find(singleRule.path).text().trim()
+                                data[key] = trim($(this).find(singleRule.path).text())
                             } else {
                                 data[key] = $(this).find(singleRule.path).text()
                             }
@@ -52,7 +57,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'html' :
                         if ($(this).find(singleRule.path).html()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).find(singleRule.path).html().trim()
+                                data[key] = trim($(this).find(singleRule.path).html())
                             } else {
                                 data[key] = $(this).find(singleRule.path).html()
                             }
@@ -61,7 +66,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'val' :
                         if ($(this).find(singleRule.path).val()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).find(singleRule.path).val().trim()
+                                data[key] = trim($(this).find(singleRule.path).val())
                             } else {
                                 data[key] = $(this).find(singleRule.path).val()
                             }
@@ -70,7 +75,7 @@ const getValueByRule = ($, list, rule) => {
                     default:
                         if ($(this).find(singleRule.path).attr(singleRule.type)) {
                             if (singleRule.trim) {
-                                data[key] = $(this).find(singleRule.path).attr(singleRule.type).trim()
+                                data[key] = trim($(this).find(singleRule.path).attr(singleRule.type))
                             } else {
                                 data[key] = $(this).find(singleRule.path).attr(singleRule.type)
                             }
@@ -82,7 +87,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'text':
                         if ($(this).text()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).text().trim()
+                                data[key] = trim($(this).text())
                             } else {
                                 data[key] = $(this).text()
                             }
@@ -91,7 +96,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'html' :
                         if ($(this).html()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).html().trim()
+                                data[key] = trim($(this).html())
                             } else {
                                 data[key] = $(this).html()
                             }
@@ -100,7 +105,7 @@ const getValueByRule = ($, list, rule) => {
                     case 'val' :
                         if ($(this).val()) {
                             if (singleRule.trim) {
-                                data[key] = $(this).val().trim()
+                                data[key] = trim($(this).val())
                             } else {
                                 data[key] = $(this).val()
                             }
@@ -109,7 +114,7 @@ const getValueByRule = ($, list, rule) => {
                     default:
                         if ($(this).attr(singleRule.type)) {
                             if (singleRule.trim) {
-                                data[key] = $(this).attr(singleRule.type).trim()
+                                data[key] = trim($(this).attr(singleRule.type))
                             } else {
                                 data[key] = $(this).attr(singleRule.type)
                             }
