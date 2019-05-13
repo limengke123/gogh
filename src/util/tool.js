@@ -42,22 +42,38 @@ const getValueByRule = ($, list, rule) => {
                     switch (singleRule.type) {
                     case 'text':
                         if ($(this).find(singleRule.path).text()) {
-                            data[key] = $(this).find(singleRule.path).text()
+                            if (singleRule.trim) {
+                                data[key] = $(this).find(singleRule.path).text().trim()
+                            } else {
+                                data[key] = $(this).find(singleRule.path).text()
+                            }
                         }
                         break
                     case 'html' :
                         if ($(this).find(singleRule.path).html()) {
-                            data[key] = $(this).find(singleRule.path).html()
+                            if (singleRule.trim) {
+                                data[key] = $(this).find(singleRule.path).html().trim()
+                            } else {
+                                data[key] = $(this).find(singleRule.path).html()
+                            }
                         }
                         break
                     case 'val' :
                         if ($(this).find(singleRule.path).val()) {
-                            data[key] = $(this).find(singleRule.path).val()
+                            if (singleRule.trim) {
+                                data[key] = $(this).find(singleRule.path).val().trim()
+                            } else {
+                                data[key] = $(this).find(singleRule.path).val()
+                            }
                         }
                         break
                     default:
                         if ($(this).find(singleRule.path).attr(singleRule.type)) {
-                            data[key] = $(this).find(singleRule.path).attr(singleRule.type)
+                            if (singleRule.trim) {
+                                data[key] = $(this).find(singleRule.path).attr(singleRule.type).trim()
+                            } else {
+                                data[key] = $(this).find(singleRule.path).attr(singleRule.type)
+                            }
                         }
                         break
                     }
@@ -65,22 +81,38 @@ const getValueByRule = ($, list, rule) => {
                     switch (singleRule.type) {
                     case 'text':
                         if ($(this).text()) {
-                            data[key] = $(this).text()
+                            if (singleRule.trim) {
+                                data[key] = $(this).text().trim()
+                            } else {
+                                data[key] = $(this).text()
+                            }
                         }
                         break
                     case 'html' :
                         if ($(this).html()) {
-                            data[key] = $(this).html()
+                            if (singleRule.trim) {
+                                data[key] = $(this).html().trim()
+                            } else {
+                                data[key] = $(this).html()
+                            }
                         }
                         break
                     case 'val' :
                         if ($(this).val()) {
-                            data[key] = $(this).val()
+                            if (singleRule.trim) {
+                                data[key] = $(this).val().trim()
+                            } else {
+                                data[key] = $(this).val()
+                            }
                         }
                         break
                     default:
                         if ($(this).attr(singleRule.type)) {
-                            data[key] = $(this).attr(singleRule.type)
+                            if (singleRule.trim) {
+                                data[key] = $(this).attr(singleRule.type).trim()
+                            } else {
+                                data[key] = $(this).attr(singleRule.type)
+                            }
                         }
                         break
                     }
