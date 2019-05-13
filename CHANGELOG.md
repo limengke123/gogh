@@ -1,3 +1,12 @@
+## [1.1.1](https://gitee.com/limengke/spider/compare/v1.1.0...v1.1.1) (2019-05-13)
+
+
+### Features
+
+* rule新增trim选项，直接清除空格 ([0863025](https://gitee.com/limengke/spider/commits/0863025))
+
+
+
 # [1.1.0](https://gitee.com/limengke/spider/compare/v1.0.6...v1.1.0) (2019-05-13)
 
 
