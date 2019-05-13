@@ -97,29 +97,29 @@ const getValueByRule = ($, list, rule) => {
             const singleRule = rule[key]
             const path = singleRule.path
             if (!path) {
-                throw("rule中的缺少path")
+                throw('rule中的缺少path')
             }
             switch (singleRule.type) {
-                case 'text':
-                    if ($(path).text()) {
-                        data[key] = $(path).text()
-                    }
-                    break
-                case 'html' :
-                    if ($(path).html()) {
-                        data[key] = $(path).html()
-                    }
-                    break
-                case 'val' :
-                    if ($(path).val()) {
-                        data[key] = $(path).val()
-                    }
-                    break
-                default:
-                    if ($(path).attr(singleRule.type)) {
-                        data[key] = $(path).attr(singleRule.type)
-                    }
-                    break
+            case 'text':
+                if ($(path).text()) {
+                    data[key] = $(path).text()
+                }
+                break
+            case 'html' :
+                if ($(path).html()) {
+                    data[key] = $(path).html()
+                }
+                break
+            case 'val' :
+                if ($(path).val()) {
+                    data[key] = $(path).val()
+                }
+                break
+            default:
+                if ($(path).attr(singleRule.type)) {
+                    data[key] = $(path).attr(singleRule.type)
+                }
+                break
             }
         })
         return data
