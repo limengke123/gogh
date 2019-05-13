@@ -1,3 +1,12 @@
+## [1.0.6](https://gitee.com/limengke/spider/compare/v1.0.5...v1.0.6) (2019-05-10)
+
+
+### Bug Fixes
+
+* 修复未传入encode，导致解析gbk网页有问题 ([8f9e8bc](https://gitee.com/limengke/spider/commits/8f9e8bc))
+
+
+
 ## [1.0.5](https://gitee.com/limengke/spider/compare/v1.0.4...v1.0.5) (2019-04-29)
 
 
